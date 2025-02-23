@@ -1,0 +1,264 @@
+import { test, expect } from '@playwright/test';
+
+test('test', async ({ page }) => {
+  await page.goto('https://keycloak.digital-enterprise-services-test.de/auth/realms/euum-internal/protocol/openid-connect/auth?scope=openid+profile&response_type=code&client_id=euum-internal-client&state=eyJyZWRpcmVjdF91cmkiOiJodHRwczovL2ludGVybmFsLmRpZ2l0YWwtZW50ZXJwcmlzZS1zZXJ2aWNlcy10ZXN0LmRlL3VzZXJtYW5hZ2VtZW50LyJ9&redirect_uri=https://api-gateway.digital-enterprise-services-test.de/euum/api/euum/authorize/v1/authorization-target');
+  await page.getByRole('textbox', { name: 'Username or email' }).click();
+  await page.getByRole('textbox', { name: 'Username or email' }).fill('test-internal');
+  await page.getByRole('textbox', { name: 'Password' }).click();
+  await page.getByRole('textbox', { name: 'Password' }).fill('test123');
+  await page.getByRole('button', { name: 'Log In' }).click();
+  await page.goto('https://internal.digital-enterprise-services-test.de/usermanagement/subgroup?p=1&sort=groupNamePath&sortDir=asc');
+  await expect(page.locator('#UM_GrpTable_Header_GroupPath').getByText('EUUM-Kundenname')).toBeVisible();
+  await page.getByRole('button', { name: 'EN', exact: true }).click();
+  await page.getByRole('button', { name: 'EN', exact: true }).click();
+  await page.getByRole('textbox', { name: 'Search by customer name' }).click();
+  await page.getByRole('textbox', { name: 'Search by customer name' }).fill('stormautomation');
+  await page.getByRole('textbox', { name: 'Search by customer name' }).press('Enter');
+  await page.locator('#UM_Subgroup_DetailsBtn_StormAutomation').click();
+  await page.getByRole('tab', { name: 'Groups' }).click();
+  await expect(page.locator('app-display-groups')).toMatchAriaSnapshot(`
+    - button "Add Group"
+    - button "Group (name, tags, desc.)"
+    - textbox "Search by group name, tags, description"
+    - button "search-icon":
+      - img "search-icon"
+    - table "group table for stander":
+      - rowgroup:
+        - row "Group Path Services Party ID count Frame contract count Mobile CNo. Count Fixednet CNo. Count GKO-ID count User count Subgroup count Status":
+          - cell "Group Path":
+            - img
+          - cell "Services"
+          - cell "Party ID count"
+          - cell "Frame contract count"
+          - cell "Mobile CNo. Count"
+          - cell "Fixednet CNo. Count"
+          - cell "GKO-ID count"
+          - cell "User count"
+          - cell "Subgroup count"
+          - cell "Status"
+          - cell
+      - rowgroup:
+        - row /StormAutomation User Management, Easy Ticket, Invoice-Center \\d+ 2 3 \\d+ 3 \\d+ \\d+ Active Dropdown for icons options/:
+          - cell "StormAutomation"
+          - cell "User Management, Easy Ticket, Invoice-Center":
+            - paragraph: User Management,
+            - paragraph: Easy Ticket,
+            - paragraph: Invoice-Center
+          - cell /\\d+/
+          - cell "2"
+          - cell "3"
+          - cell /\\d+/
+          - cell "3"
+          - cell /\\d+/
+          - cell /\\d+/
+          - cell "Active"
+          - cell "Dropdown for icons options":
+            - button
+        - row "StormAutomation/Alysha - 0 0 0 0 0 0 0 Active Dropdown for icons options":
+          - cell "StormAutomation/Alysha"
+          - cell "-"
+          - cell "0"
+          - cell "0"
+          - cell "0"
+          - cell "0"
+          - cell "0"
+          - cell "0"
+          - cell "0"
+          - cell "Active"
+          - cell "Dropdown for icons options":
+            - button
+            - button
+        - row "StormAutomation/andrew - 1 1 1 0 0 0 0 Active Dropdown for icons options":
+          - cell "StormAutomation/andrew"
+          - cell "-"
+          - cell "1"
+          - cell "1"
+          - cell "1"
+          - cell "0"
+          - cell "0"
+          - cell "0"
+          - cell "0"
+          - cell "Active"
+          - cell "Dropdown for icons options":
+            - button
+            - button
+        - row /StormAutomation\\/andrew emad-test-\\d+-\\d+-\\d+ - 1 1 1 0 0 0 0 Active Dropdown for icons options/:
+          - cell /StormAutomation\\/andrew emad-test-\\d+-\\d+-\\d+/
+          - cell "-"
+          - cell "1"
+          - cell "1"
+          - cell "1"
+          - cell "0"
+          - cell "0"
+          - cell "0"
+          - cell "0"
+          - cell "Active"
+          - cell "Dropdown for icons options":
+            - button
+            - button
+        - row "StormAutomation/andrew-test - 1 1 1 0 0 0 0 Active Dropdown for icons options":
+          - cell "StormAutomation/andrew-test"
+          - cell "-"
+          - cell "1"
+          - cell "1"
+          - cell "1"
+          - cell "0"
+          - cell "0"
+          - cell "0"
+          - cell "0"
+          - cell "Active"
+          - cell "Dropdown for icons options":
+            - button
+            - button
+        - row "StormAutomation/Ankunding-Ankunding - 0 0 0 0 0 0 0 Active Dropdown for icons options":
+          - cell "StormAutomation/Ankunding-Ankunding"
+          - cell "-"
+          - cell "0"
+          - cell "0"
+          - cell "0"
+          - cell "0"
+          - cell "0"
+          - cell "0"
+          - cell "0"
+          - cell "Active"
+          - cell "Dropdown for icons options":
+            - button
+            - button
+        - row "StormAutomation/Armstrong, Armstrong and Armstrong - 0 0 0 0 0 0 0 Active Dropdown for icons options":
+          - cell "StormAutomation/Armstrong, Armstrong and Armstrong"
+          - cell "-"
+          - cell "0"
+          - cell "0"
+          - cell "0"
+          - cell "0"
+          - cell "0"
+          - cell "0"
+          - cell "0"
+          - cell "Active"
+          - cell "Dropdown for icons options":
+            - button
+            - button
+        - row "StormAutomation/Audrey - 0 0 0 0 0 0 0 Active Dropdown for icons options":
+          - cell "StormAutomation/Audrey"
+          - cell "-"
+          - cell "0"
+          - cell "0"
+          - cell "0"
+          - cell "0"
+          - cell "0"
+          - cell "0"
+          - cell "0"
+          - cell "Active"
+          - cell "Dropdown for icons options":
+            - button
+            - button
+        - row "StormAutomation/Barrows, Barrows and Barrows - 0 0 0 0 0 0 0 Active Dropdown for icons options":
+          - cell "StormAutomation/Barrows, Barrows and Barrows"
+          - cell "-"
+          - cell "0"
+          - cell "0"
+          - cell "0"
+          - cell "0"
+          - cell "0"
+          - cell "0"
+          - cell "0"
+          - cell "Active"
+          - cell "Dropdown for icons options":
+            - button
+            - button
+        - row "StormAutomation/Borer-Borer - 0 0 0 0 0 0 0 Active Dropdown for icons options":
+          - cell "StormAutomation/Borer-Borer"
+          - cell "-"
+          - cell "0"
+          - cell "0"
+          - cell "0"
+          - cell "0"
+          - cell "0"
+          - cell "0"
+          - cell "0"
+          - cell "Active"
+          - cell "Dropdown for icons options":
+            - button
+            - button
+        - row "StormAutomation/Buddy - 0 0 0 0 0 0 0 Active Dropdown for icons options":
+          - cell "StormAutomation/Buddy"
+          - cell "-"
+          - cell "0"
+          - cell "0"
+          - cell "0"
+          - cell "0"
+          - cell "0"
+          - cell "0"
+          - cell "0"
+          - cell "Active"
+          - cell "Dropdown for icons options":
+            - button
+            - button
+        - row "StormAutomation/Carter-Carter - 0 0 0 0 0 0 0 Active Dropdown for icons options":
+          - cell "StormAutomation/Carter-Carter"
+          - cell "-"
+          - cell "0"
+          - cell "0"
+          - cell "0"
+          - cell "0"
+          - cell "0"
+          - cell "0"
+          - cell "0"
+          - cell "Active"
+          - cell "Dropdown for icons options":
+            - button
+            - button
+        - row "StormAutomation/com.github.javafaker.Company@189d74e4 - 0 0 0 0 0 0 0 Active Dropdown for icons options":
+          - cell "StormAutomation/com.github.javafaker.Company@189d74e4"
+          - cell "-"
+          - cell "0"
+          - cell "0"
+          - cell "0"
+          - cell "0"
+          - cell "0"
+          - cell "0"
+          - cell "0"
+          - cell "Active"
+          - cell "Dropdown for icons options":
+            - button
+            - button
+        - row "StormAutomation/Connelly-Connelly - 0 0 0 0 0 0 0 Active Dropdown for icons options":
+          - cell "StormAutomation/Connelly-Connelly"
+          - cell "-"
+          - cell "0"
+          - cell "0"
+          - cell "0"
+          - cell "0"
+          - cell "0"
+          - cell "0"
+          - cell "0"
+          - cell "Active"
+          - cell "Dropdown for icons options":
+            - button
+            - button
+        - row "StormAutomation/Daniel LLC - 0 0 0 0 0 0 0 Active Dropdown for icons options":
+          - cell "StormAutomation/Daniel LLC"
+          - cell "-"
+          - cell "0"
+          - cell "0"
+          - cell "0"
+          - cell "0"
+          - cell "0"
+          - cell "0"
+          - cell "0"
+          - cell "Active"
+          - cell "Dropdown for icons options":
+            - button
+            - button
+    - paragraph: /Showing 1 to \\d+ of \\d+/
+    - navigation "pagination":
+      - list:
+        - button "Go To Previous Page" [disabled]
+        - button "Current Page, Page 1"
+        - button "Go to Page 2"
+        - button "Go to Page 3"
+        - button "Go to Page +3Steps"
+        - button /Go to Page \\d+/
+        - button "Go To Next Page"
+    `);
+});
